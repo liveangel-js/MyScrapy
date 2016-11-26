@@ -5,6 +5,7 @@ __project__ = 'MyScrapy'
 import random
 import base64
 from settings import PROXIES
+from settings import MY_COOKIES
 
 
 class RandomUserAgent(object):
@@ -20,6 +21,13 @@ class RandomUserAgent(object):
     def process_request(self, request, spider):
         # print "**************************" + random.choice(self.agents)
         request.headers.setdefault('User-Agent', random.choice(self.agents))
+
+class RandomCookies(object):
+
+    def process_request(self, request, spider):
+        print "*"*80
+        request.headers['Cookie'] = random.choice(MY_COOKIES)
+        print request.headers['Cookie']
 
 
 class ProxyMiddleware(object):

@@ -1,0 +1,2 @@
+source ~/.bashrc
+source ~/PycharmProjects/virtualenv/MyScrapy/bin/activate

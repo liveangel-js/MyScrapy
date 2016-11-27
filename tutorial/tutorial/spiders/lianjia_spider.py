@@ -3,11 +3,11 @@
 __author__ = 'liveangel'
 __project__ = 'MyScrapy'
 import scrapy
-from HouseDeal import HouseDeal
+# from HouseDeal import HouseDeal
 
 import simplejson as json
 import re
-
+from tutorial.items import HouseDeal
 
 class HouseSpider(scrapy.Spider):
     name = "house"
@@ -61,17 +61,16 @@ class HouseSpider(scrapy.Spider):
         city_name = breadcrumbs[1].css("::text").extract_first()[:-7]
         district_name = breadcrumbs[1].css("::text").extract_first()[:-7]
         section_name = breadcrumbs[1].css("::text").extract_first()[:-7]
-
-        house_deal = HouseDeal(response.url, page_title=title, community_name=community_name,
+        house_deal = HouseDeal(url=response.url, community_name=community_name,
                               community_link=community_link, address=address, house_no=house_no,
                                deal_date=deal_date, list_price=list_price, unit_price=unit_price,
                                floor=floor, construction_year=construction_year,decoration_level=decoration_level,
                                building_orientation=building_orientation,tags=tag_list,
                                room_type=room_type, area=area,city_name=city_name,
                                district_name=district_name,section_name=section_name)
-        print house_deal
-        print json.dumps(house_deal.__dict__)
-
+        # print house_deal
+        yield house_deal
+        yield scrapy.Request("http://sh.lianjia.com/chengjiao/sh4220677.html", callback=self.parse)
 
 
 

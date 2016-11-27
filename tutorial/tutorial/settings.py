@@ -95,12 +95,16 @@ DOWNLOADER_MIDDLEWARES = {
     #    'cnblogs.middlewares.MyCustomDownloaderMiddleware': 543,
     'tutorial.middlewares.RandomUserAgent': 1,  # 随机user agent
     'tutorial.middlewares.RandomCookies': 800, #代理需要用到
+
     # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110, #此API已经弃用
     # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110, #代理需要用到
     # 'tutorial.middlewares.ProxyMiddleware': 100, #代理需要用到
     # 'scrapy_crawlera.CrawleraMiddleware': 600, #crawlera代理用到
 }
-
+ITEM_PIPELINES = {
+    'tutorial.pipelines.HouseDealPipeline': 300,
+    'tutorial.pipelines.JsonWriterPipeline': 800,
+}
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 # EXTENSIONS = {
@@ -133,3 +137,6 @@ DOWNLOADER_MIDDLEWARES = {
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# MONGO_URI
+# MONGO_DATABASE

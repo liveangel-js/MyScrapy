@@ -103,6 +103,7 @@ DOWNLOADER_MIDDLEWARES = {
 }
 ITEM_PIPELINES = {
     'tutorial.pipelines.HouseDealPipeline': 300,
+    'tutorial.pipelines.DuplicatesPipeline': 500,
     'tutorial.pipelines.JsonWriterPipeline': 800,
     'tutorial.pipelines.MongoPipeline': 900,
 }

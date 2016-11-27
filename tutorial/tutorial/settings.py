@@ -104,6 +104,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     'tutorial.pipelines.HouseDealPipeline': 300,
     'tutorial.pipelines.JsonWriterPipeline': 800,
+    'tutorial.pipelines.MongoPipeline': 900,
 }
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -138,5 +139,5 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# MONGO_URI
-# MONGO_DATABASE
+MONGO_URI='mongodb://localhost:27017/'
+MONGO_DATABASE='lianjia'

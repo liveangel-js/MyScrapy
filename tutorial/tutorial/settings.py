@@ -142,3 +142,8 @@ ITEM_PIPELINES = {
 
 MONGO_URI='mongodb://localhost:27017/'
 MONGO_DATABASE='lianjia'
+
+
+FEED_URI='./output/%(name)s/%(time)s.json'
+FEED_FORMAT='jsonlines'
+# FEED_FORMAT='csv'

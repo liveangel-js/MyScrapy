@@ -8,11 +8,15 @@ import scrapy
 import simplejson as json
 import re
 from tutorial.items import HouseDeal
+import logging
+
 
 class HouseSpider(scrapy.Spider):
     name = "house"
     # cookies = {'select_city':'310000', 'cityCode':'sh', 'lianjia_uuid':'b31eff11-2b79-438f-8384-e8d1a23b93f6'}
     cookies = {'select_city':'310000', 'cityCode':'sh', 'lianjia_uuid':'b31eff11-2b79-438f-8384-e8d1a23b93f5'}
+    logger = logging.getLogger(__name__)
+
 
     def process_request(self, request, spider):
         print "*" *80 +"process_request"
@@ -20,6 +24,7 @@ class HouseSpider(scrapy.Spider):
     def start_requests(self):
         urls = ['http://sh.lianjia.com/chengjiao/sh1813297.html']
         for url in urls:
+            self.logger.debug("Request %s" % url)
             yield scrapy.Request(url=url, callback=self.parse)
             # yield scrapy.Request(url=url, meta={'dont_redirect': True,"handle_httpstatus_list": [302]}, cookies=self.cookies, callback=self.parse)
 

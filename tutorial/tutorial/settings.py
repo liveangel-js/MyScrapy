@@ -147,3 +147,6 @@ MONGO_DATABASE='lianjia'
 FEED_URI='./output/%(name)s/%(time)s.json'
 FEED_FORMAT='jsonlines'
 # FEED_FORMAT='csv'
+
+
+LOG_LEVEL='DEBUG'

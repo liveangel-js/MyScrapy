@@ -6,8 +6,6 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from scrapy.contrib.loader.processor import Join, MapCompose, TakeFirst
-from w3lib.html import remove_tags
 
 class TutorialItem(scrapy.Item):
     # define the fields for your item here like:
@@ -16,6 +14,7 @@ class TutorialItem(scrapy.Item):
 
 
 class Base(scrapy.Item):
+    _id = scrapy.Field()
     last_updated = scrapy.Field()
     spider = scrapy.Field()
     url = scrapy.Field()

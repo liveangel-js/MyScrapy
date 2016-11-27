@@ -13,6 +13,7 @@ class HouseDealPipeline(object):
     def process_item(self, item, spider):
         if spider.name == 'house':
             item["crawled_time"] = str(datetime.utcnow())
+            item["_id"] = item["house_no"]
             # item["spider"] = spider.name
             pass
         return item
@@ -52,7 +53,9 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         collection_name = item.__class__.__name__
-        self.db[collection_name].insert(dict(item))
+
+        # self.db[collection_name].insert(dict(item))
+        self.db[collection_name].update({'_id':item["_id"]}, dict(item), True)
         return item
 
 

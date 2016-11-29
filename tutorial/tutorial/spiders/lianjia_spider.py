@@ -44,21 +44,21 @@ class HouseSpider(scrapy.Spider):
         album = response.css("div.album-box")
         content = response.css("div.content")
 
-        deal_date = response.css("div.soldInfo div.cell.first p::text").extract_first().strip()
-        list_price = response.css("div.soldInfo div.cell")[1].css(" p::text").extract_first().strip()
+        deal_date = response.css("div.soldInfo div.cell.first p::text").extract_first()
+        list_price = response.css("div.soldInfo div.cell")[1].css(" p::text").extract_first()
 
         around_info = response.css("table.aroundInfo")
-        unit_price = around_info[0].css("tr td")[0].css("::text").extract()[2].strip()
-        floor = around_info[0].css("tr td")[1].css("::text").extract()[2].strip()
-        construction_year = around_info[0].css("tr td")[2].css("::text").extract()[2].strip()
-        decoration_level = around_info[0].css("tr td")[3].css("::text").extract()[2].strip()
-        building_orientation = around_info[0].css("tr td")[4].css("::text").extract()[2].strip()
-        community_name = around_info[0].css("tr td")[5].css("a::text").extract_first().strip()
+        unit_price = around_info[0].css("tr td")[0].css("::text").extract()[2]
+        floor = around_info[0].css("tr td")[1].css("::text").extract()[2]
+        construction_year = around_info[0].css("tr td")[2].css("::text").extract()[2]
+        decoration_level = around_info[0].css("tr td")[3].css("::text").extract()[2]
+        building_orientation = around_info[0].css("tr td")[4].css("::text").extract()[2]
+        community_name = around_info[0].css("tr td")[5].css("a::text").extract_first()
 
-        community_link = around_info[0].css("tr td")[5].css("a::attr(href)").extract_first().strip()
+        community_link = around_info[0].css("tr td")[5].css("a::attr(href)").extract_first()
         community_link = response.urljoin(community_link)
-        address = around_info[0].css("tr td")[6].css("p::text").extract_first().strip()
-        house_no = around_info[0].css("tr td")[7].css("::text").extract()[2].strip()
+        address = around_info[0].css("tr td")[6].css("p::text").extract_first()
+        house_no = around_info[0].css("tr td")[7].css("::text").extract()[2]
         room_type = title.split(u" ")[1]
         area = title.split(u" ")[2]
 

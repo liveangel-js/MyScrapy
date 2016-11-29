@@ -9,6 +9,14 @@ import pymongo
 from datetime import datetime
 from scrapy.exceptions import DropItem
 
+class StripPipeline(object):
+    def process_item(self, item, spider):
+        for key in item.keys():
+            # if type(item[key]==unicode):
+            if type(item[key])==unicode:
+                item[key] = item[key].strip()
+        return item
+
 class HouseDealPipeline(object):
     def process_item(self, item, spider):
         if spider.name == 'house':
@@ -17,6 +25,7 @@ class HouseDealPipeline(object):
             # item["spider"] = spider.name
             pass
         return item
+
 
 
 class JsonWriterPipeline(object):

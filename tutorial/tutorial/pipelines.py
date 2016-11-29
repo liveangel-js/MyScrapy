@@ -7,7 +7,9 @@
 import json
 import pymongo
 from datetime import datetime
+from scrapy.utils.serialize import ScrapyJSONEncoder
 from scrapy.exceptions import DropItem
+from twisted.internet.threads import deferToThread
 
 class StripPipeline(object):
     def process_item(self, item, spider):
@@ -80,3 +82,32 @@ class DuplicatesPipeline(object):
             else:
                 self.ids_seen.add(item['house_no'])
                 return item
+
+from scrapy_redis import connection
+
+default_serialize = ScrapyJSONEncoder().encode
+
+class ChengJiaoUrlPipeline(object):
+
+    def __init__(self, server,
+                 key='%(spider)s:items',
+                 serialize_func=default_serialize):
+        self.server = server
+        self.key = key
+        self.serialize = serialize_func
+
+    @classmethod
+    def from_settings(cls, settings):
+        params = {
+            'server': connection.from_settings(settings),
+        }
+        return cls(**params)
+    def process_item(self, item, spider):
+        return deferToThread(self._process_item, item, spider)
+
+    def _process_item(self, item, spider):
+        key = "chengjiao_urls"
+        # store new url to chengjiao_urls
+        data = self.serialize("dasdasdasd")
+        self.server.rpush(key, data)
+        return item

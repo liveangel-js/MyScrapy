@@ -104,6 +104,8 @@ ITEM_PIPELINES = {
     'tutorial.pipelines.DuplicatesPipeline': 500,
     'tutorial.pipelines.JsonWriterPipeline': 800,
     'tutorial.pipelines.MongoPipeline': 900,
+    'scrapy_redis.pipelines.RedisPipeline': 920,
+    'tutorial.pipelines.ChengJiaoUrlPipeline': 930,
 }
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -148,3 +150,40 @@ FEED_FORMAT='jsonlines'
 
 
 LOG_LEVEL='DEBUG'
+
+
+# 添加 scrapy redis
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = True
+
+# The item pipeline serializes and stores the items in this redis key.
+REDIS_ITEMS_KEY = '%(spider)s:items'
+
+# The items serializer is by default ScrapyJSONEncoder. You can use any
+# importable path to a callable object.
+#REDIS_ITEMS_SERIALIZER = 'json.dumps'
+
+# Specify the host and port to use when connecting to Redis (optional).
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+
+# Specify the full Redis URL for connecting (optional).
+# If set, this takes precedence over the REDIS_HOST and REDIS_PORT settings.
+#REDIS_URL = 'redis://user:pass@hostname:9001'
+
+# Custom redis client parameters (i.e.: socket timeout, etc.)
+#REDIS_PARAMS  = {}
+# Use custom redis client class.
+#REDIS_PARAMS['redis_cls'] = 'myproject.RedisClient'
+
+# If True, it uses redis' ``spop`` operation. This could be useful if you
+# want to avoid duplicates in your start urls list. In this cases, urls must
+# be added via ``sadd`` command or you will get a type error from redis.
+#REDIS_START_URLS_AS_SET = False
+
+# How many start urls to fetch at once.
+#REDIS_START_URLS_BATCH_SIZE = 16
+
+# Default start urls key for RedisSpider and RedisCrawlSpider.
+REDIS_START_URLS_KEY = '%(name)s:start_urls'
